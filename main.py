@@ -7,9 +7,7 @@ intents.messages = True
 intents.guild_messages = True
 intents.reactions = True
 
-# intents = discord.Intents.all()
-# TOKEN = os.environ['TOKEN']
-TOKEN = "MTA1NzA2NDUxMzY5NTkxMTk5Ng.GSGA-a.XF8ikLHRORdH2_n4Cm5XbL-kgHXU-S008IRwRk"
+TOKEN = "MTA1NzA2NDUxMzY5NTkxMTk5Ng.GSGA-a.XF8ikLHRORdH2_n4Cm5XbL-kgHXU-S008IRwRk" # Nobody look at this O:
 client = discord.Client(intents=intents, token=TOKEN)
 
 @client.event
@@ -20,7 +18,7 @@ async def on_ready():
 async def on_message(message):
     rand = random.uniform(0, 100)
     print(f"Generated {round(rand, 3)}")
-    print(message)
+    # print(message.content)
 
     if message.author == client.user:
         return
