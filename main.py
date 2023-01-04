@@ -47,5 +47,8 @@ async def on_message(message):
             print(f"{message.author} just got heart randomed lmao")
             await message.add_reaction("❤️")
 
+    if message.content == "!high":
+        message.author.addRole(1060309166767476887)
+
 client.run(TOKEN)
 
