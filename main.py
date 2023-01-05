@@ -16,38 +16,45 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
 @client.event
-async def on_message(message):
-    if message.author == client.user:
+async def on_message(message): # Runs actions the moment a message is sent in the server? 
+    if message.author == client.user: # ignore messages sent by the bot itself  
         return
 
+    #RNG for specific features, generates a number between 0-100
     rand = random.uniform(0, 100)
     print(f"{message.author} generated {round(rand, 3)} for message \"{message.content}\"")
 
     # Stuff for specific people
-    if message.author.id == 693691418308378644:
+    if message.author.id == 693691418308378644: # Jocelyn's ID
         print(f"{message.author} sent a message")
         await message.add_reaction("❌")
         await(message.add_reaction("👎"))
-    elif message.author.id == 321458194071158784:
+        
+    elif message.author.id == 321458194071158784: # Logang's ID 
         print(f"{message.author} sent a message")
         await message.add_reaction("✅")
-    elif message.author.id == 130456305126211585:
+        
+    elif message.author.id == 130456305126211585: # Eli's ID 
         if rand > 97:
-            await message.channel.send("uwu eli you are so cute 👉👈 😳")
-
+            if rand == 98:
+                await message.channel.send("uwu eli you are so cute 👉👈 😳")
+            elif rand == 99: 
+                await message.channel.send("eli please I want to bear your children")
+            else:
+                await message.channel.send("eli marry me I beg")
     # Stuff for general messages
-    if "shut" in message.content.lower() and "up" in message.content.lower() or "stfu" in message.content.lower():
+    if "shut" in message.content.lower() and "up" in message.content.lower() or "stfu" in message.content.lower(): #check for any message containing "shut up"
         await message.channel.send("yeah shut up")
-    else:
-        if rand < 2:
+    else:  # for other messages not containing "shut up"
+        if rand < 2: #more RNG 
             print(f"{message.author} just got f randomed lmao")
             await message.add_reaction("🇫")
-        elif rand < 4:
+        elif rand < 4: #more RNG 
             print(f"{message.author} just got heart randomed lmao")
             await message.add_reaction("❤️")
     
     # High stuff
-    if message.content == "!hi":
+    if message.content == "!hi": # wtf 
         role = discord.utils.get(message.guild.roles, id=1060309166767476887)
         print(f"Adding {role} to {message.author}")
 
@@ -61,7 +68,7 @@ async def on_message(message):
         await message.delete()
 
     # Check for spam
-    messages = []
+    messages = [] # message buffer 
 
     # Get the messages
     async for message in message.channel.history(limit=5):
@@ -94,7 +101,7 @@ async def rand_spam_msg(message, time):
         await message.channel.send(f"like")
         await message.channel.send(f"this")
     elif rand <= 7:
-        await message.channel.send(f"it took {message.author.mention} {time} seconds to send 5 messages, i last longer in bed and im not even real")
+        await message.channel.send(f"it took {message.author.mention} {time} seconds to send 5 messages, I last longer in bed and I'm not even real")
     
 
 async def remove_role(member, role):
@@ -103,4 +110,3 @@ async def remove_role(member, role):
     await member.remove_roles(role)
 
 client.run(TOKEN)
-
