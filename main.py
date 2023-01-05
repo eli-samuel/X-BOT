@@ -17,12 +17,11 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    rand = random.uniform(0, 100)
-    print(f"Generated {round(rand, 3)}")
-    print(message.author, "-", message.content)
-
     if message.author == client.user:
         return
+
+    rand = random.uniform(0, 100)
+    print(f"{message.author} generated {round(rand, 3)} for message \"{message.content}\"")
 
     # Stuff for specific people
     if message.author.id == 693691418308378644:
@@ -60,6 +59,43 @@ async def on_message(message):
 
         await bot_message.delete()
         await message.delete()
+
+    # Check for spam
+    messages = []
+
+    # Get the messages
+    async for message in message.channel.history(limit=5):
+        messages.append(message)
+
+    # Check if the messages were sent by the same person in 10 seconds
+    if (messages[0].author == messages[1].author == messages[2].author == messages[3].author == messages[4].author and (messages[0].created_at - messages[4].created_at).total_seconds() <= 10):
+        await rand_spam_msg(message, (messages[0].created_at-messages[4].created_at).total_seconds())
+
+async def rand_spam_msg(message, time):
+    rand = round(random.uniform(0, 7), 1)
+
+    print(f"Five messages were sent by the {message.author} in {time} seconds generating {rand}")
+
+    if rand <= 2.:
+        await message.channel.send(f"{message.author.mention}, please uninstall your send button")
+    elif rand <= 4.:
+        await message.channel.send(f"wtf {message.author.mention} stop spamming!")
+    elif rand <= 5.:
+        await message.channel.send(f"fyi {message.author.mention} just sent five messages in {time} seconds")
+    elif rand <= 6.:
+        await message.channel.send(f"https://tenor.com/view/spam-spam-intensifies-yum-gif-13948300")
+    elif rand <= 6.5:
+        await message.channel.send(f"{message.author.mention}")
+        await message.channel.send(f"you")
+        await message.channel.send(f"don't")
+        await message.channel.send(f"need")
+        await message.channel.send(f"to")
+        await message.channel.send(f"type")
+        await message.channel.send(f"like")
+        await message.channel.send(f"this")
+    elif rand <= 7:
+        await message.channel.send(f"it took {message.author.mention} {time} seconds to send 5 messages, i last longer in bed and im not even real")
+    
 
 async def remove_role(member, role):
     await asyncio.sleep(60)
