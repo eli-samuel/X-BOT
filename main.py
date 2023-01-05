@@ -49,16 +49,21 @@ async def on_message(message):
     
     # High stuff
     if message.content == "!hi":
-        print("Someone is high")
         role = discord.utils.get(message.guild.roles, id=1060309166767476887)
         print(f"Adding {role} to {message.author}")
+
         await message.author.add_roles(role)
+
         await message.add_reaction(":highaf:1000110789228777533>")
-        await message.delete()
+        bot_message = await message.channel.send(f"{message.author.mention}, you have 60 seconds to enter: https://discord.gg/jaTCB25aM6")
+
         await remove_role(message.author, role)
 
+        await bot_message.delete()
+        await message.delete()
+
 async def remove_role(member, role):
-    await asyncio.sleep(10)
+    await asyncio.sleep(60)
     print("Removing role from", member)
     await member.remove_roles(role)
 
