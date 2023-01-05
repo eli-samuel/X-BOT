@@ -53,7 +53,6 @@ async def on_message(message):
         print(f"Adding {role} to {message.author}")
 
         await message.author.add_roles(role)
-
         await message.add_reaction(":highaf:1000110789228777533>")
         bot_message = await message.channel.send(f"{message.author.mention}, you have 60 seconds to enter: https://discord.gg/jaTCB25aM6")
 
