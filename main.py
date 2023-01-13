@@ -52,6 +52,9 @@ async def on_message(message): # Runs actions the moment a message is sent in th
         elif rand < 4: #more RNG 
             print(f"{message.author} just got heart randomed lmao")
             await message.add_reaction("❤️")
+        elif rand < 6: #more RNG 
+            print(f"{message.author} just got x randomed lmao")
+            await message.add_reaction("❌")
     
     # High stuff
     if message.content == "!hi": # wtf 
