@@ -2,10 +2,12 @@ import discord
 import os
 import random
 import asyncio
+from datetime import datetime, timedelta
 
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
+prev_day_of_week
 
 intents = discord.Intents.all()
 
@@ -14,11 +16,14 @@ client = discord.Client(intents=intents, token=TOKEN)
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    
 
 @client.event
 async def on_message(message): # Runs actions the moment a message is sent in the server? 
     if message.author == client.user: # ignore messages sent by the bot itself  
         return
+
+    await send_gm(message)
 
     #RNG for specific features, generates a number between 0-100
     rand = random.uniform(0, 100)
@@ -69,6 +74,13 @@ async def on_message(message): # Runs actions the moment a message is sent in th
 
         await bot_message.delete()
         await message.delete()
+    
+    # Good morning memes
+    if message.content == "!settime":
+        prev_day_of_week  = datetime.now().weekday()
+            
+            
+        
 
     # Check for spam
     messages = [] # message buffer 
@@ -112,4 +124,28 @@ async def remove_role(member, role):
     print("Removing role from", member)
     await member.remove_roles(role)
 
+    
+async def send_gm(message):
+        
+        current_day_of_week = datetime.now().weekday()
+        if (current_day_of_week - prev_day_of_week >=1) or (current_day_of_week == 0 and prev_day_of_week == 6): # if a day ("24 hours") has passed
+            prev_day_of_week = current_day_of_week
+            if (current_time.hour >= 11): # if time is past 6 am - time in UTC - 6 am EST is 11 AM UTC
+                if (current_day_of_week == 0):# monday
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/blessings-god-bless-family-sparkle-gif-24714833")
+                elif (current_day_of_week == 1):
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/tuesday-happy-blessings-good-morning-gif-23349785")
+                elif (current_day_of_week == 2):
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/happy-wednesday-bahonon-jayjay-opely-greetings-gif-12105891")
+                elif (current_day_of_week == 3):
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/141thur-gif-25653641")
+                elif (current_day_of_week == 4):
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/friday-happy-love-gif-25332949")
+                elif (current_day_of_week == 5):
+                    bot_message = await message.channel.send(f"https://tenor.com/view/happy-day-gif-25988861")
+                elif (current_day_of_week == 6): #sunday
+                    bot_message = await message.channel.send(f"https://tenor.com/view/happy-sunday-gif-26115569")
+                else: #impossible?
+                    bot_message = await message.channel.send(f"https://tenor.com/view/cat-sniff-gif-26264120")
+        
 client.run(TOKEN)
