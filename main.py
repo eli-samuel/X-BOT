@@ -16,7 +16,6 @@ client = discord.Client(intents=intents, token=TOKEN)
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    
 
 @client.event
 async def on_message(message): # Runs actions the moment a message is sent in the server? 
@@ -79,9 +78,6 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     if message.content == "!settime":
         prev_day_of_week  = datetime.now().weekday()
             
-            
-        
-
     # Check for spam
     messages = [] # message buffer 
 
@@ -117,14 +113,12 @@ async def rand_spam_msg(message, time):
         await message.channel.send(f"this")
     elif rand <= 7:
         await message.channel.send(f"it took {message.author.mention} {time} seconds to send 5 messages, I last longer in bed and I'm not even real")
-    
 
 async def remove_role(member, role):
     await asyncio.sleep(60)
     print("Removing role from", member)
     await member.remove_roles(role)
 
-    
 async def send_gm(message):
         
         current_day_of_week = datetime.now().weekday()
