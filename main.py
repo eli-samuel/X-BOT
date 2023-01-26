@@ -7,7 +7,8 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
-prev_day_of_week
+global prev_day_of_week
+prev_day_of_week = 0
 
 intents = discord.Intents.all()
 
@@ -76,6 +77,7 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     
     # Good morning memes
     if message.content == "!settime":
+        global prev_day_of_week
         prev_day_of_week  = datetime.now().weekday()
             
     # Check for spam
@@ -120,11 +122,12 @@ async def remove_role(member, role):
     await member.remove_roles(role)
 
 async def send_gm(message):
-        
+        current_time = datetime.datetime.now()
         current_day_of_week = datetime.now().weekday()
+        global prev_day_of_week
         if (current_day_of_week - prev_day_of_week >=1) or (current_day_of_week == 0 and prev_day_of_week == 6): # if a day ("24 hours") has passed
             prev_day_of_week = current_day_of_week
-            if (current_time.hour >= 11): # if time is past 6 am - time in UTC - 6 am EST is 11 AM UTC
+            if (current_time.hour >= 14): # if time is past 9 am - time in UTC - 6 am EST is 11 AM UTC
                 if (current_day_of_week == 0):# monday
                     bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/blessings-god-bless-family-sparkle-gif-24714833")
                 elif (current_day_of_week == 1):
@@ -136,10 +139,10 @@ async def send_gm(message):
                 elif (current_day_of_week == 4):
                     bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/friday-happy-love-gif-25332949")
                 elif (current_day_of_week == 5):
-                    bot_message = await message.channel.send(f"https://tenor.com/view/happy-day-gif-25988861")
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/happy-day-gif-25988861")
                 elif (current_day_of_week == 6): #sunday
-                    bot_message = await message.channel.send(f"https://tenor.com/view/happy-sunday-gif-26115569")
+                    bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/happy-sunday-gif-26115569")
                 else: #impossible?
-                    bot_message = await message.channel.send(f"https://tenor.com/view/cat-sniff-gif-26264120")
+                    bot_message = await message.channel.send(f" Huh ? \n https://tenor.com/view/cat-sniff-gif-26264120")
         
 client.run(TOKEN)
