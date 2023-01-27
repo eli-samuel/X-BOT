@@ -60,6 +60,38 @@ async def on_message(message): # Runs actions the moment a message is sent in th
         elif rand < 6: #more RNG 
             print(f"{message.author} just got x randomed lmao")
             await message.add_reaction("❌")
+
+    if "xbot" in message.content.lower():
+        print(f"8ball time for message: {message.content}")
+        answers = random.randint(1,10)
+        if message.content[-1] == '?':
+            r = ""
+            if answers == 1:
+                r = "certainly"
+            elif answers == 2:
+                r = "damn right"
+            elif answers == 3:
+                r = "you may rely on it"
+            elif answers == 4:
+                r = "ask again later"
+            elif answers == 5:
+                r = "focus and ask a better question"
+            elif answers == 6:
+                r = "reply hazy, i forgot my glasses"
+            elif answers == 7:
+                r = "my reply is no"
+            elif answers == 8:
+                r = "hard no"
+            elif answers == 9:
+                r = "go away queer"
+            elif answers == 10:
+                r = "period mimi"
+            await message.channel.send(r)
+        else:
+            if answers < 5:
+                print("what?")
+            else:
+                print("is that a question?")
     
     # High stuff
     if message.content == "!hi": # wtf 
@@ -122,7 +154,7 @@ async def remove_role(member, role):
     await member.remove_roles(role)
 
 async def send_gm(message):
-        current_time = datetime.datetime.now()
+        current_time = datetime.now()
         current_day_of_week = datetime.now().weekday()
         global prev_day_of_week
         if (current_day_of_week - prev_day_of_week >=1) or (current_day_of_week == 0 and prev_day_of_week == 6): # if a day ("24 hours") has passed
