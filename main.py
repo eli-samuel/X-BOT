@@ -40,24 +40,23 @@ async def on_message(message): # Runs actions the moment a message is sent in th
         await message.add_reaction("✅")
         
     elif message.author.id == 130456305126211585: # Eli's ID 
-        if rand > 97:
-            if rand == 98:
-                await message.channel.send("uwu eli you are so cute 👉👈 😳")
-            elif rand == 99: 
-                await message.channel.send("eli please I want to bear your children")
-            else:
-                await message.channel.send("eli marry me I beg")
+        if rand == 98:
+            await message.channel.send("uwu eli you are so cute 👉👈 😳")
+        elif rand == 99: 
+            await message.channel.send("eli please I want to bear your children")
+        else:
+            await message.channel.send("eli marry me I beg")
     # Stuff for general messages
     if "shut" in message.content.lower() and "up" in message.content.lower() or "stfu" in message.content.lower(): #check for any message containing "shut up"
         await message.channel.send("yeah shut up")
     else:  # for other messages not containing "shut up"
-        if rand < 2: #more RNG 
+        if rand < 1: #more RNG 
             print(f"{message.author} just got f randomed lmao")
             await message.add_reaction("🇫")
-        elif rand < 4: #more RNG 
+        elif rand < 2: #more RNG 
             print(f"{message.author} just got heart randomed lmao")
             await message.add_reaction("❤️")
-        elif rand < 6: #more RNG 
+        elif rand < 3: #more RNG 
             print(f"{message.author} just got x randomed lmao")
             await message.add_reaction("❌")
 
