@@ -30,22 +30,21 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     print(f"{message.author} generated {round(rand, 3)} for message \"{message.content}\"")
 
     # Stuff for specific people
-    if message.author.id == 693691418308378644: # Jocelyn's ID
+    if message.author.id == 321458194071158784: # Jocelyn's ID
         print(f"{message.author} sent a message")
         await message.add_reaction("❌")
         await(message.add_reaction("👎"))
-        
-    elif message.author.id == 321458194071158784: # Logang's ID 
+    elif message.author.id == 693691418308378644: # Logang's ID 
         print(f"{message.author} sent a message")
         await message.add_reaction("✅")
-        
     elif message.author.id == 130456305126211585: # Eli's ID 
-        if rand == 98:
+        if rand == 97:
             await message.channel.send("uwu eli you are so cute 👉👈 😳")
-        elif rand == 99: 
+        elif rand == 98: 
             await message.channel.send("eli please I want to bear your children")
-        else:
+        elif rand == 99:
             await message.channel.send("eli marry me I beg")
+
     # Stuff for general messages
     if "shut" in message.content.lower() and "up" in message.content.lower() or "stfu" in message.content.lower(): #check for any message containing "shut up"
         await message.channel.send("yeah shut up")
@@ -105,6 +104,10 @@ async def on_message(message): # Runs actions the moment a message is sent in th
 
         await bot_message.delete()
         await message.delete()
+
+    # Good morning at 3 pm response
+    if message.content.lower() == "good morning":
+        await message.channel.send("hi")
     
     # Good morning memes
     if message.content == "!settime":
