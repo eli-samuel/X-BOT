@@ -59,6 +59,12 @@ async def on_message(message): # Runs actions the moment a message is sent in th
             print(f"{message.author} just got x randomed lmao")
             await message.add_reaction("❌")
 
+    # period
+    if "." == message.content.lower():
+        print("PERIOD LOL")
+        await message.channel.send("period")
+
+    # 8 ball stuff
     if "xbot" in message.content.lower():
         print(f"8ball time for message: {message.content}")
         answers = random.randint(1,10)
