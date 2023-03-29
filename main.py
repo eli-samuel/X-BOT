@@ -166,8 +166,9 @@ async def send_gm(message):
         current_day_of_week = datetime.now().weekday()
         global prev_day_of_week
         if (current_day_of_week - prev_day_of_week >=1) or (current_day_of_week == 0 and prev_day_of_week == 6): # if a day ("24 hours") has passed
-            prev_day_of_week = current_day_of_week
+            
             if (current_time.hour >= 14): # if time is past 9 am - time in UTC - 6 am EST is 11 AM UTC
+                prev_day_of_week = current_day_of_week
                 if (current_day_of_week == 0):# monday
                     bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/blessings-god-bless-family-sparkle-gif-24714833")
                 elif (current_day_of_week == 1):
