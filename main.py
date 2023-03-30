@@ -63,6 +63,11 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     if "." == message.content.lower():
         print("PERIOD LOL")
         await message.channel.send("period")
+    
+    #FUNKY FRIDAY
+    if "!ff" == message.content.lower():
+        print("IT'S FONKY FRIDAY")
+        await message.channel.send("IT'S FONKY FRIDAY Y'ALL \n https://cdn.discordapp.com/attachments/686480561946099713/1089223084877283428/trim.9E58D6F8-F40F-4730-B129-5113F304C098.mov")
 
     # 8 ball stuff
     if "xbot" in message.content.lower():
