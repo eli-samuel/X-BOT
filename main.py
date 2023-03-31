@@ -79,6 +79,11 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     if "." == message.content.lower():
         print("PERIOD LOL")
         await message.channel.send("period")
+    
+    #FUNKY FRIDAY
+    if "!ff" == message.content.lower():
+        print("IT'S FONKY FRIDAY")
+        await message.channel.send("IT'S FONKY FRIDAY Y'ALL \n https://cdn.discordapp.com/attachments/686480561946099713/1089223084877283428/trim.9E58D6F8-F40F-4730-B129-5113F304C098.mov")
 
     # 8 ball stuff
     if "xbot" in message.content.lower():
@@ -146,26 +151,5 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     # Check if the messages were sent by the same person in 10 seconds
     if (messages[0].author == messages[1].author == messages[2].author == messages[3].author == messages[4].author and (messages[0].created_at - messages[4].created_at).total_seconds() <= 10):
         await rand_spam_msg(message, (messages[0].created_at-messages[4].created_at).total_seconds())
-
-# async def join_voice(message):
-#     global channel
-#     if channel is not None: # already connected
-#         await message.channel.send("I'm already in a voice channel right now lmao")
-#         return
-    
-#     connected = message.author.voice.channel
-#     if not connected:
-#         await message.channel.send("You aren't in a voice channel wtf")
-#         channel = None
-#         return
-
-#     channel = await connected.connect()
-
-# async def leavevoice(ctx):
-#     for x in client.voice_clients:
-#         if(x.server == ctx.message.server):
-#             return await x.disconnect()
-
-#     return await client.say("I am not connected to any voice channel on this server!")
 
 client.run(TOKEN)
