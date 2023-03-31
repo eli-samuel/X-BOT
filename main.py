@@ -3,7 +3,7 @@ import os
 import random
 import asyncio
 from datetime import datetime, timedelta
-from functions import rand_spam_msg, remove_role, send_gm
+from functions import rand_spam_msg, remove_role, send_gm, join_voice, leave_voice
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -12,10 +12,14 @@ TOKEN = os.getenv("TOKEN")
 intents = discord.Intents.all()
 
 client = discord.Client(intents=intents, token=TOKEN)
+# bot = commands.Bot(intents=intents, command_prefix='!')
+
+# channel = None
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+
 
 @client.event
 async def on_message(message): # Runs actions the moment a message is sent in the server? 
@@ -23,6 +27,19 @@ async def on_message(message): # Runs actions the moment a message is sent in th
         return
 
     await send_gm(message)
+
+    # global channel
+    if message.content.lower() == "!yom":
+        print(f"Attempting to join voice channel.")
+        await join_voice(message, "yomnomnom.mp3")
+        
+        # print(f"Joining channel: {channel}")        
+
+    if message.content.lower() == "go away":
+        await leave_voice(message)
+        # print(f"Leaving channel: {channel}")
+
+    # print(f"channel {channel}")
 
     #RNG for specific features, generates a number between 0-100
     rand = random.uniform(0, 100)
@@ -129,5 +146,26 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     # Check if the messages were sent by the same person in 10 seconds
     if (messages[0].author == messages[1].author == messages[2].author == messages[3].author == messages[4].author and (messages[0].created_at - messages[4].created_at).total_seconds() <= 10):
         await rand_spam_msg(message, (messages[0].created_at-messages[4].created_at).total_seconds())
-        
+
+# async def join_voice(message):
+#     global channel
+#     if channel is not None: # already connected
+#         await message.channel.send("I'm already in a voice channel right now lmao")
+#         return
+    
+#     connected = message.author.voice.channel
+#     if not connected:
+#         await message.channel.send("You aren't in a voice channel wtf")
+#         channel = None
+#         return
+
+#     channel = await connected.connect()
+
+# async def leavevoice(ctx):
+#     for x in client.voice_clients:
+#         if(x.server == ctx.message.server):
+#             return await x.disconnect()
+
+#     return await client.say("I am not connected to any voice channel on this server!")
+
 client.run(TOKEN)

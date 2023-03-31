@@ -60,3 +60,47 @@ async def send_gm(message):
                     bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/happy-sunday-gif-26115569")
                 else: #impossible?
                     bot_message = await message.channel.send(f" Huh ? \n https://tenor.com/view/cat-sniff-gif-26264120")
+
+async def join_voice(message, audio_path):
+    connected = message.author.voice.channel
+    if not connected:
+        await message.channel.send("You aren't in a voice channel wtf")
+        return
+    
+    print(f"Connected to: {connected}")
+    
+    audio_source = discord.FFmpegPCMAudio(audio_path)
+    print(f"Audio source: {audio_source}")
+
+    print("A")
+
+    try:
+        voice = await connected.connect()
+    except asyncio.TimeoutError:
+        await message.channel.send("Failed to connect to voice channel")
+        return
+    
+    print("B")
+    voice.play(audio_source)
+    print("C")
+
+    # wait for the audio to finish playing
+    while voice.is_playing():
+        print("D")
+        await asyncio.sleep(1)
+
+    await voice.disconnect(force=True)
+
+async def leave_voice(message):
+    voice_client = message.guild.voice_client
+    if not voice_client:
+        await message.channel.send("I'm not currently in a voice channel.")
+        return
+
+    for channel in message.guild.voice_channels:
+        if voice_client.channel == channel:
+            await voice_client.disconnect(force=True)
+            await message.channel.send(f"Leaving voice channel: {channel.name}")
+            return
+
+    await message.channel.send("I'm not currently in a voice channel.")
