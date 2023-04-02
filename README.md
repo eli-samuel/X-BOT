@@ -15,6 +15,28 @@ X-BOT is a discord bot desgined to provide entertainment, as well as some utilit
 
 ## Patch notes
 
+### *April 1, 2023*
+`v1.3.2 release`
+##### YOMNOMNOMNOM part 2
+
+> Developer comments: YOMNOMNOM was too boring, updated the audio file.
+
+    - !yom
+
+---
+### *March 31, 2023*
+`v1.3.1 release`
+##### YOMNOMNOMNOM
+
+> Developer comments: Time to implement voice chatting. This feature was suggested by tokki and sacha.
+
+    - !yom joins voice and plays an audio clip
+    - "go away" forces X-Bot to leave the voice channel it is currently in
+
+##### Funky Friday
+> Developer comments: ???
+    - ???
+---
 ### *March 22, 2023*
 `v1.2.5 release`
 ##### Period
