@@ -28,12 +28,17 @@ async def on_message(message): # Runs actions the moment a message is sent in th
 
     await send_gm(message)
 
+    if message.content.lower() == "ping":
+        await message.channel.send("pong")
+
     # global channel
     if message.content.lower() == "!yom":
         print(f"Attempting to join voice channel.")
         await join_voice(message, "yomnomnom.mp3")
         
-        # print(f"Joining channel: {channel}")        
+    if message.content.lower() == "!mace" or message.content.lower() == "!rally":
+            print(f"Attempting to join voice channel.")
+            await join_voice(message, "Mace_to_the_mace_to_the_mace_to_the_face.mp3")
 
     if message.content.lower() == "go away":
         await leave_voice(message)
@@ -46,11 +51,11 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     print(f"{message.author} generated {round(rand, 3)} for message \"{message.content}\"")
 
     # Stuff for specific people
-    if message.author.id == 321458194071158784: # Jocelyn's ID
+    if message.author.id == 693691418308378644: # Jocelyn's ID
         print(f"{message.author} sent a message")
         await message.add_reaction("❌")
         await(message.add_reaction("👎"))
-    elif message.author.id == 693691418308378644: # Logang's ID 
+    elif message.author.id == 321458194071158784: # Logang's ID 
         print(f"{message.author} sent a message")
         await message.add_reaction("✅")
     elif message.author.id == 130456305126211585: # Eli's ID 
@@ -88,7 +93,7 @@ async def on_message(message): # Runs actions the moment a message is sent in th
     # 8 ball stuff
     if "xbot" in message.content.lower():
         print(f"8ball time for message: {message.content}")
-        answers = random.randint(1,10)
+        answers = random.randint(1,13)
         if message.content[-1] == '?':
             r = ""
             if answers == 1:
@@ -111,6 +116,12 @@ async def on_message(message): # Runs actions the moment a message is sent in th
                 r = "go away queer"
             elif answers == 10:
                 r = "period mimi"
+            elif answers == 11:
+                r = "yes ofc"
+            elif answers == 12:
+                r = "your question is unanswerable"
+            elif answers == 13:
+                r = "you know it"
             await message.channel.send(r)
         else:
             if answers < 5:

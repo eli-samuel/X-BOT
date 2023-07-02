@@ -4,6 +4,29 @@ import random
 import asyncio
 from datetime import datetime, timedelta
 
+import codecs
+import os
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+from collections import Counter
+from collections import defaultdict
+import codecs
+from sklearn.model_selection import KFold
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from torchvision import datasets, transforms
+import torchvision
+import torch
+from torch.nn.modules.activation import Softmax
+from torchsummary import summary
+import torch.nn as nn
+from torch.nn import functional as F
+import torch.optim.lr_scheduler as lr_scheduler
+from torch.utils.data import TensorDataset, DataLoader
+
 global prev_day_of_week
 prev_day_of_week = 0
 
@@ -104,3 +127,70 @@ async def leave_voice(message):
             return
 
     await message.channel.send("I'm not currently in a voice channel.")
+
+
+def write_to_file(strings, path):
+    """
+    Writes a list of strings to a file at the specified path.
+
+    Args:
+        strings (list of str): The strings to write to the file.
+        path (str): The path to the file to write.
+
+    Returns:
+        None
+    """
+    with codecs.open(path, 'w', encoding='utf-8') as f:
+        for s in strings:
+            f.write(s + "\n")
+
+
+def read_from_file(path):
+    """
+    Reads the contents of a file at the specified path into a list of strings.
+
+    Args:
+        path (str): The path to the file to read.
+
+    Returns:
+        list of str: The lines of the file, stripped of leading and trailing whitespace.
+    """
+    with codecs.open(path, 'r', encoding='utf-8') as f:
+        strings = [line.strip() for line in f.readlines()]
+    return strings
+
+
+def add_masking_padding(data, pad_value=-1):
+    """
+    Adds padding to a batch of variable-length sequences and returns a mask indicating which values are real and which
+    are padding.
+
+    Args:
+        data (list of list of int): The batch of variable-length sequences to pad.
+        pad_value (int, optional): The value to use for padding. Defaults to -1.
+
+    Returns:
+        tuple: A tuple containing:
+            - list of list of int: The padded batch of sequences.
+            - list of list of int: The mask indicating which values are real and which are padding.
+    """
+    output = []
+    # Get the length of the longest string in the batch
+    max_len = max([len(string) for string in data])
+    print(
+        f"The longest sentence is {max_len} characters long. Adding padding to all shorter strings.")
+
+    # Create a mask for the padding values
+    mask = [pad_value] * len(data)
+    for i in range(len(data)):
+        mask[i] = [pad_value] * max_len
+
+    # Pad each string with the padding value and set the corresponding mask values
+    for i, string in enumerate(data):
+        padded = [pad_value] * max_len
+        for j in range(len(string)):
+            padded[j] = string[j]
+            mask[i][j] = 1
+        output.append(padded)
+
+    return output, mask
