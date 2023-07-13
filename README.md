@@ -2,7 +2,7 @@
 ## _Full Release Notes and Information_
 
 ## About
-X-BOT is a discord bot desgined to provide entertainment, as well as some utilities. This bot serves as a playground for us to implement our own functionalities to either give people a laugh or automate certain tasks.
+X-BOT is a Discord bot desgined to provide entertainment, as well as some utilities. This bot serves as a playground for us to implement our own functionalities to either give people a laugh or automate certain tasks.
 
 ## Main features
 - Basic Anti-spam filter
