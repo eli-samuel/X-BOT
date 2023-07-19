@@ -40,9 +40,13 @@ async def remove_role(member, role):
 async def send_gm(message):
         current_time = datetime.now()
         current_day_of_week = datetime.now().weekday()
+        print("The current day is: ", current_day_of_week)
         global prev_day_of_week
+        print("Previous day of week is: ", prev_day_of_week)
+        print("Current time is: ", current_time.hour)
         if (current_day_of_week - prev_day_of_week >=1) or (current_day_of_week == 0 and prev_day_of_week == 6): # if a day ("24 hours") has passed
             prev_day_of_week = current_day_of_week
+            print("SENDING MESSAGE, PREV DAY IS NOW ", prev_day_of_week )
             if (current_time.hour >= 9): # if time is past 9 am - time in UTC - 6 am EST is 11 AM UTC
                 if (current_day_of_week == 0):# monday
                     bot_message = await message.channel.send(f"Good morning! \n https://tenor.com/view/blessings-god-bless-family-sparkle-gif-24714833")
